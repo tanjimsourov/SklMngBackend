@@ -28,3 +28,16 @@ class LoginSerializer(serializers.ModelSerializer):
         read_only_fields = ['token']
 
 
+class AddStaffSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(
+        max_length=128, min_length=6, write_only=True)
+
+    class Meta:
+        model = User
+        fields = (
+            'username', 'email', 'phone', 'gender', 'nidNumber', 'is_active', 'is_admin',
+            'is_staff', 'is_verified', 'profilePic',
+            'password','fullName')
+
+    def create(self, validated_data):
+        return User.objects.create_user(**validated_data)

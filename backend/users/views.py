@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from .models import User
 from .otp import generateKey
-from .serializers import SuperUserSerializer
+from .serializers import SuperUserSerializer, AddStaffSerializer
 
 
 class SuperuserRegister(GenericAPIView):
@@ -37,3 +37,22 @@ class LoginAPIView(GenericAPIView):
             return response.Response({"phone": user.phone, "username": user.username, "token": user.token},
                                      status=status.HTTP_200_OK)
         return response.Response({'message': "Invalid credentials, try again"}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class addStaff(GenericAPIView):
+    permission_classes = (permissions.IsAdminUser,)
+    serializer_class = AddStaffSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if request.user.is_admin:
+            if serializer.is_valid():
+                serializer.save()
+                return response.Response({'message': f"{request.data['username']} added successfully as employee"},
+                                         status=status.HTTP_201_CREATED)
+            else:
+                return response.Response({'message': 'You can"t add stuff'},
+                                         status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return response.Response({'message': 'Something went Wrong'},
+                                     status=status.HTTP_400_BAD_REQUEST)
