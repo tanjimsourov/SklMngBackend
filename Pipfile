@@ -5,6 +5,13 @@ name = "pypi"
 
 [packages]
 django = "*"
+djangorestframework = "*"
+django-cors-headers = "*"
+pillow = "*"
+pyjwt = "*"
+pyotp = "*"
+tzdata = "*"
+whitenoise = "*"
 
 [dev-packages]
 
