@@ -23,3 +23,17 @@ class SuperuserRegister(GenericAPIView):
             return Response(serializer.data['token'], status=status.HTTP_201_CREATED)
         else:
             return response.Response({"Fuck You"}, status=status.HTTP_200_OK)
+
+
+class LoginAPIView(GenericAPIView):
+    authentication_classes = []
+
+    def post(self, request):
+        phone = request.data.get('phone', None)
+        password = request.data.get('password', None)
+        user = authenticate(username=phone, password=password)
+
+        if user:
+            return response.Response({"phone": user.phone, "username": user.username, "token": user.token},
+                                     status=status.HTTP_200_OK)
+        return response.Response({'message': "Invalid credentials, try again"}, status=status.HTTP_401_UNAUTHORIZED)

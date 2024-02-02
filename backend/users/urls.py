@@ -3,9 +3,10 @@ from django.urls import path
 
 urlpatterns = [
     path('superuser', views.SuperuserRegister.as_view(), name="superuser"),
+    path('login', views.LoginAPIView.as_view(), name="login"),
     # path('userlist', views.UserList.as_view(), name="users"),
     # path('employeelist', views.EmployeeList.as_view(), name="employees"),
-    # path('login', views.LoginAPIView.as_view(), name="login"),
+
     # path('addstuff', views.addStaff.as_view(), name="adduser"),
     # path('getuser/<int:id>/', views.GetUserDetails.as_view(), name="GetUserDetails"),
     # path('addnomini/<int:id>', views.AddNominiDetails.as_view(), name="AddNomini"),
