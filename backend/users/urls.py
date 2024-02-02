@@ -7,6 +7,7 @@ urlpatterns = [
     path('addstaff', views.addStaff.as_view(), name="addstaff"),
     path('employeelist', views.EmployeeList.as_view(), name="employees"),
     path('addteacher', views.addTeacher.as_view(), name="addTeacher"),
+    path('teacherlist', views.TeacherList.as_view(), name="teachers"),
 
 
     # path('userlist', views.UserList.as_view(), name="users"),

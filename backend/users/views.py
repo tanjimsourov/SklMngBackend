@@ -75,7 +75,6 @@ class addTeacher(GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         if request.user.is_admin:
             if serializer.is_valid():
-
                 serializer.save()
                 return response.Response({'message': f"{request.data['username']} added successfully as new Teacher"},
                                          status=status.HTTP_201_CREATED)
@@ -84,3 +83,12 @@ class addTeacher(GenericAPIView):
 
         return response.Response({'message': 'You can"t add Teacher'},
                                  status=status.HTTP_400_BAD_REQUEST)
+
+
+class TeacherList(GenericAPIView):
+    authentication_classes = []
+
+    def get(self, request):
+        model = User.objects.filter(is_teacher=True)
+        serializer = UserDataSerializer(model, many=True)
+        return Response(serializer.data)
