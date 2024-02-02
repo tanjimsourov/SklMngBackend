@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from .models import User
 from .otp import generateKey
-from .serializers import SuperUserSerializer, AddStaffSerializer
+from .serializers import SuperUserSerializer, AddStaffSerializer, UserDataSerializer, AddTeacherSerializer
 
 
 class SuperuserRegister(GenericAPIView):
@@ -56,3 +56,31 @@ class addStaff(GenericAPIView):
         else:
             return response.Response({'message': 'Something went Wrong'},
                                      status=status.HTTP_400_BAD_REQUEST)
+
+
+class EmployeeList(GenericAPIView):
+    permission_classes = [permissions.IsAdminUser]
+
+    def get(self, request):
+        model = User.objects.filter(is_staff=True)
+        serializer = UserDataSerializer(model, many=True)
+        return Response(serializer.data)
+
+
+class addTeacher(GenericAPIView):
+    permission_classes = [permissions.IsAdminUser]
+    serializer_class = AddTeacherSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if request.user.is_admin:
+            if serializer.is_valid():
+
+                serializer.save()
+                return response.Response({'message': f"{request.data['username']} added successfully as new Teacher"},
+                                         status=status.HTTP_201_CREATED)
+            return response.Response({'message': 'Something went Wrong'},
+                                     status=status.HTTP_400_BAD_REQUEST)
+
+        return response.Response({'message': 'You can"t add Teacher'},
+                                 status=status.HTTP_400_BAD_REQUEST)

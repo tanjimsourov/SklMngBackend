@@ -66,6 +66,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         default='',
         null=False
     )
+    teacherDesignation = models.CharField(
+        _('teacherDesignation'),
+        max_length=30,
+        default='',
+        null=True
+    )
     fname = models.CharField(
         _('fname'),
         max_length=30,
@@ -126,6 +132,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     is_admin = models.BooleanField(
         _('admin'),
+        default=False,
+
+    )
+    is_teacher = models.BooleanField(
+        _('is_teacher'),
         default=False,
 
     )
