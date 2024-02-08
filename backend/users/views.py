@@ -126,3 +126,12 @@ class StudentList(GenericAPIView):
         model = User.objects.filter(is_student=True)
         serializer = All_Student(model, many=True)
         return Response(serializer.data)
+
+
+class StudentListSpecificClass(GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, class_):
+        model = User.objects.filter(studCurrentYear=class_)
+        serializer = All_Student(model, many=True)
+        return Response(serializer.data)
