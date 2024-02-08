@@ -8,6 +8,7 @@ urlpatterns = [
     path('employeelist', views.EmployeeList.as_view(), name="employees"),
     path('addteacher', views.addTeacher.as_view(), name="addTeacher"),
     path('teacherlist', views.TeacherList.as_view(), name="teachers"),
-    path('addstudent', views.addStudent.as_view(), name="addTeacher"),
+    path('addstudent', views.addStudent.as_view(), name="addStudent"),
+    path('allstudents', views.StudentList.as_view(), name="students"),
 
 ]

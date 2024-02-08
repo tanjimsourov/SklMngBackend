@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from .models import User
 from .otp import generateKey
 from .serializers import (SuperUserSerializer, AddStaffSerializer,
-                          UserDataSerializer,
+                          UserDataSerializer, All_Student,
                           AddTeacherSerializer,
                           AddStudentDetail)
 
@@ -117,3 +117,12 @@ class addStudent(GenericAPIView):
 
         return response.Response({'message': 'You can"t add Student'},
                                  status=status.HTTP_400_BAD_REQUEST)
+
+
+class StudentList(GenericAPIView):
+    authentication_classes = []
+
+    def get(self, request):
+        model = User.objects.filter(is_student=True)
+        serializer = All_Student(model, many=True)
+        return Response(serializer.data)

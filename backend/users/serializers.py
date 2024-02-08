@@ -70,8 +70,18 @@ class AddStudentDetail(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'profilePic', 'fullName', 'location', 'phone', 'gender',
-                  'studCurrentYear', 'studPrevYear', 'is_verified', 'currentYearRoll', 'PrevYearRoll', 'is_student',
+                  'studCurrentYear', 'studPrevYear', 'is_verified', 'currentYearRoll',
+                  'PrevYearRoll', 'is_student',
                   'fname', 'mname', 'dob', 'password')
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
+
+
+class All_Student(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'profilePic', 'fullName', 'location', 'phone', 'gender',
+                  'studCurrentYear', 'studPrevYear', 'is_verified', 'currentYearRoll',
+                  'PrevYearRoll', 'is_student',
+                  'fname', 'mname', 'dob', 'password')
