@@ -61,3 +61,17 @@ class AddTeacherSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
+
+
+class AddStudentDetail(serializers.ModelSerializer):
+    password = serializers.CharField(
+        max_length=128, min_length=6, write_only=True)
+
+    class Meta:
+        model = User
+        fields = ('username', 'profilePic', 'fullName', 'location', 'phone', 'gender',
+                  'studCurrentYear', 'studPrevYear', 'is_verified', 'currentYearRoll', 'PrevYearRoll', 'is_student',
+                  'fname', 'mname', 'dob', 'password')
+
+    def create(self, validated_data):
+        return User.objects.create_user(**validated_data)

@@ -5,7 +5,10 @@ from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from .models import User
 from .otp import generateKey
-from .serializers import SuperUserSerializer, AddStaffSerializer, UserDataSerializer, AddTeacherSerializer
+from .serializers import (SuperUserSerializer, AddStaffSerializer,
+                          UserDataSerializer,
+                          AddTeacherSerializer,
+                          AddStudentDetail)
 
 
 class SuperuserRegister(GenericAPIView):
@@ -36,7 +39,8 @@ class LoginAPIView(GenericAPIView):
         if user:
             return response.Response({"phone": user.phone, "username": user.username, "token": user.token},
                                      status=status.HTTP_200_OK)
-        return response.Response({'message': "Invalid credentials, try again"}, status=status.HTTP_401_UNAUTHORIZED)
+        return response.Response({'message': "Invalid credentials, try again"},
+                                 status=status.HTTP_401_UNAUTHORIZED)
 
 
 class addStaff(GenericAPIView):
@@ -48,7 +52,8 @@ class addStaff(GenericAPIView):
         if request.user.is_admin:
             if serializer.is_valid():
                 serializer.save()
-                return response.Response({'message': f"{request.data['username']} added successfully as employee"},
+                return response.Response({'message': f"{request.data['username']} "
+                                                     f"added successfully as employee"},
                                          status=status.HTTP_201_CREATED)
             else:
                 return response.Response({'message': 'You can"t add stuff'},
@@ -76,7 +81,8 @@ class addTeacher(GenericAPIView):
         if request.user.is_admin:
             if serializer.is_valid():
                 serializer.save()
-                return response.Response({'message': f"{request.data['username']} added successfully as new Teacher"},
+                return response.Response({'message': f"{request.data['username']} "
+                                                     f"added successfully as new Teacher"},
                                          status=status.HTTP_201_CREATED)
             return response.Response({'message': 'Something went Wrong'},
                                      status=status.HTTP_400_BAD_REQUEST)
@@ -92,3 +98,22 @@ class TeacherList(GenericAPIView):
         model = User.objects.filter(is_teacher=True)
         serializer = UserDataSerializer(model, many=True)
         return Response(serializer.data)
+
+
+class addStudent(GenericAPIView):
+    permission_classes = [permissions.IsAdminUser]
+    serializer_class = AddStudentDetail
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if request.user.is_staff or request.user.is_admin:
+            if serializer.is_valid():
+                serializer.save()
+                return response.Response({'message': f"{request.data['username']} "
+                                                     f"added successfully as new Student"},
+                                         status=status.HTTP_201_CREATED)
+            return response.Response({'message': 'Something went Wrong'},
+                                     status=status.HTTP_400_BAD_REQUEST)
+
+        return response.Response({'message': 'You can"t add Student'},
+                                 status=status.HTTP_400_BAD_REQUEST)

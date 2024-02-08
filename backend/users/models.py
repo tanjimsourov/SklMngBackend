@@ -36,7 +36,7 @@ class MyUserManager(UserManager):
     def create_user(self, username, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
-        extra_fields.setdefault('is_verified', False)
+        extra_fields.setdefault('is_verified', True)
         return self._create_user(username, password, **extra_fields)
 
     def create_superuser(self, username, password=None, **extra_fields):
@@ -72,6 +72,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         default='',
         null=True
     )
+    studCurrentYear = models.IntegerField(default=0)
+    studPrevYear = models.IntegerField(default=0)
+    currentYearRoll = models.IntegerField(default=0)
+    PrevYearRoll = models.IntegerField(default=0)
     fname = models.CharField(
         _('fname'),
         max_length=30,
@@ -137,6 +141,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     is_teacher = models.BooleanField(
         _('is_teacher'),
+        default=False,
+
+    )
+    is_student = models.BooleanField(
+        _('is_student'),
         default=False,
 
     )
