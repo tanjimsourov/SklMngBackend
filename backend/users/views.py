@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from .models import User
 from .otp import generateKey
+from django.db.models import Q
 from .serializers import (SuperUserSerializer, AddStaffSerializer,
                           UserDataSerializer, All_Student,
                           AddTeacherSerializer,
@@ -133,5 +134,14 @@ class StudentListSpecificClass(GenericAPIView):
 
     def get(self, request, class_):
         model = User.objects.filter(studCurrentYear=class_)
+        serializer = All_Student(model, many=True)
+        return Response(serializer.data)
+
+
+class StudentListSpecificSection(GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, class_, section):
+        model = User.objects.filter(Q(studCurrentYear=class_) & Q(section=section))
         serializer = All_Student(model, many=True)
         return Response(serializer.data)

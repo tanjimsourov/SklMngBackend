@@ -69,7 +69,7 @@ class AddStudentDetail(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'profilePic', 'fullName', 'location', 'phone', 'gender',
+        fields = ('username', 'profilePic', 'fullName', 'location', 'phone', 'gender', 'section',
                   'studCurrentYear', 'studPrevYear', 'is_verified', 'currentYearRoll',
                   'PrevYearRoll', 'is_student',
                   'fname', 'mname', 'dob', 'password')
@@ -82,6 +82,6 @@ class All_Student(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'profilePic', 'fullName', 'location', 'phone', 'gender',
-                  'studCurrentYear', 'studPrevYear', 'is_verified', 'currentYearRoll',
+                  'studCurrentYear', 'studPrevYear','section', 'is_verified', 'currentYearRoll',
                   'PrevYearRoll', 'is_student',
                   'fname', 'mname', 'dob', 'password')

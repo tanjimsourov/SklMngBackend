@@ -76,6 +76,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     studPrevYear = models.IntegerField(default=0)
     currentYearRoll = models.IntegerField(default=0)
     PrevYearRoll = models.IntegerField(default=0)
+    section = models.CharField(
+        _('section'),
+        max_length=30,
+        default='',
+        null=True
+    )
     fname = models.CharField(
         _('fname'),
         max_length=30,
