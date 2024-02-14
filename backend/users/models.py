@@ -66,8 +66,74 @@ class User(AbstractBaseUser, PermissionsMixin):
         default='',
         null=False
     )
+    studID= models.CharField(
+        _('studID'),
+        max_length=30,
+        default='',
+        null=False
+    )
+    group= models.CharField(
+        _('group'),
+        max_length=30,
+        default='',
+        null=False
+    )
+    optionalSubject= models.CharField(
+        _('optionalSubject'),
+        max_length=30,
+        default='',
+        null=True
+    )
+    bloodGroup= models.CharField(
+        _('bloodGroup'),
+        max_length=30,
+        default='',
+        null=False
+    )
+    country= models.CharField(
+        _('country'),
+        max_length=30,
+        default='',
+        null=False
+    )
     teacherDesignation = models.CharField(
         _('teacherDesignation'),
+        max_length=30,
+        default='',
+        null=True
+    )
+    fatherProf = models.CharField(
+        _('fatherProf'),
+        max_length=30,
+        default='',
+        null=True
+    )
+    motherProf = models.CharField(
+        _('motherProf'),
+        max_length=30,
+        default='',
+        null=True
+    )
+    fatherMobile = models.CharField(
+        _('fatherMobile'),
+        max_length=30,
+        default='',
+        null=True
+    )
+    fatherNID = models.CharField(
+        _('fatherNID'),
+        max_length=30,
+        default='',
+        null=True
+    )
+    motherMobile = models.CharField(
+        _('motherMobile'),
+        max_length=30,
+        default='',
+        null=True
+    )
+    motherNID = models.CharField(
+        _('motherNID'),
         max_length=30,
         default='',
         null=True
@@ -75,6 +141,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     studCurrentYear = models.IntegerField(default=0)
     studPrevYear = models.IntegerField(default=0)
     currentYearRoll = models.IntegerField(default=0)
+    remarks = models.IntegerField(default=0)
     PrevYearRoll = models.IntegerField(default=0)
     section = models.CharField(
         _('section'),
