@@ -70,7 +70,7 @@ class AddStudentDetail(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('studID', 'fullName', 'group','studCurrentYear','studPrevYear','currentYearRoll','PrevYearRoll',
-                  'optionalSubject', 'dob','gender','bloodGroup', 'email','phone', 'country', 'remarks',
+                  'optionalSubject', 'dob','gender','bloodGroup', 'email','phone', 'country', 'remarks','profilePic',
                   'username', 'password',
                   'fname', 'mname','fatherProf', 'motherProf','fatherMobile','fatherNID',
                   'motherMobile','motherNID','is_student')
