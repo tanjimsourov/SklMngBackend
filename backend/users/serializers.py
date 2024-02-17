@@ -82,7 +82,8 @@ class AddStudentDetail(serializers.ModelSerializer):
 class All_Student(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'profilePic', 'fullName', 'location', 'phone', 'gender',
-                  'studCurrentYear', 'studPrevYear','section', 'is_verified', 'currentYearRoll',
-                  'PrevYearRoll', 'is_student',
-                  'fname', 'mname', 'dob', 'password')
+        fields = ('studID', 'fullName', 'group','studCurrentYear','studPrevYear','currentYearRoll','PrevYearRoll',
+                  'optionalSubject', 'dob','gender','bloodGroup', 'email','phone', 'country', 'remarks','profilePic',
+                  'username', 'password',
+                  'fname', 'mname','fatherProf', 'motherProf','fatherMobile','fatherNID',
+                  'motherMobile','motherNID','is_student')
